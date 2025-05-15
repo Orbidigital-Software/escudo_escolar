@@ -36,11 +36,15 @@ def train_model(file):
 def predict_from_file(file):
     if not os.path.exists(MODEL_PATH):
         raise Exception("El modelo no ha sido entrenado aún. Entrénalo primero con /train.")
-
+    
     df = pd.read_csv(file)
+    
+    # Eliminar columnas sin nombre que puedan haber aparecido
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    
     clf = joblib.load(MODEL_PATH)
     predictions = clf.predict(df)
-
+    
     df['prediction'] = predictions
     return {
         "message": "Predicción realizada con éxito",
