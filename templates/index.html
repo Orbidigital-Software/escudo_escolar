@@ -1,0 +1,20 @@
+<h1>Entrenar modelo</h1>
+<form action="{{ url_for('train') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".csv,.xls,.xlsx" required>
+    <button type="submit">Entrenar</button>
+</form>
+
+{% if message %}
+    <p style="color: green;">{{ message }}</p>
+{% endif %}
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+{% if preview %}
+    <h2>Vista previa del archivo cargado:</h2>
+    <div style="overflow-x: auto;">
+        {{ preview|safe }}
+    </div>
+{% endif %}
