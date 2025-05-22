@@ -24,9 +24,13 @@ def train():
                 return render_template("index.html", error=str(e))
     return render_template("index.html")
 
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
+    return render_template('predict.html')
+
 @app.route('/')
-def index():
-    return "¡Hola, Flask está funcionando!"
+def dashboard():
+    return render_template('dashboard.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
