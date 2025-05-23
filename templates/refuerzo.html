@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultados de Aprendizaje por Refuerzo</title>
+</head>
+<body>
+    <h1>Resultados del agente</h1>
+
+    <h2>Recompensas</h2>
+    <p>Total acumulado: {{ rewards.total_recompensas }}</p>
+    <p>Episodio donde se aprendió la política óptima: {{ rewards.episodio_optimo }}</p>
+
+    <h2>Gráfico de Recompensas por Episodio</h2>
+    <img src="{{ url_for('static', filename='rewards_plot.png') }}" alt="Gráfico de recompensas">
+
+    <h3>Recompensas por episodio:</h3>
+    <ul>
+        {% for reward in rewards.rewards_per_episode %}
+            <li>{{ reward }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

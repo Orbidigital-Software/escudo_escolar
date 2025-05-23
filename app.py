@@ -1,7 +1,12 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, send_file
 from model import train_model
+from rl_agent import rewards_per_episode
+import matplotlib.pyplot as plt
 import pandas as pd
 import os
+import io
+import base64
+import json
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -27,6 +32,20 @@ def train():
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     return render_template('predict.html')
+
+@app.route('/refuerzo')
+def refuerzo():
+    try:
+        with open('rewards.json', 'r') as f:
+            rewards = json.load(f)
+    except FileNotFoundError:
+        rewards = {
+            "rewards_per_episode": [],
+            "total_recompensas": 0,
+            "episodio_optimo": None
+        }
+
+    return render_template('refuerzo.html', rewards=rewards)
 
 @app.route('/')
 def dashboard():
